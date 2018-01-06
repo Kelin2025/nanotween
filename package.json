@@ -1,0 +1,9 @@
+{
+  "name": "nanotween",
+  "version": "0.1.0",
+  "description": "Tiny library for tweening",
+  "main": "index.js",
+  "repository": "https://github.com/kelin2025/nanotween",
+  "author": "Anton Kosykh <kelin2025@yandex.ru>",
+  "license": "MIT"
+}
