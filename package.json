@@ -1,9 +1,52 @@
 {
   "name": "nanotween",
-  "version": "0.1.0",
+  "version": "0.1.0-dev.0",
   "description": "Tiny library for tweening",
-  "main": "index.js",
+  "main": "cjs/index.js",
+  "module": "es/index.js",
   "repository": "https://github.com/kelin2025/nanotween",
   "author": "Anton Kosykh <kelin2025@yandex.ru>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "build": "rollup -c",
+    "lint": "eslint src/*.js test/*.js",
+    "pretest": "npm run build",
+    "test": "jest test/** --coverage && npm run lint",
+    "size": "npm run build && size-limit",
+    "prepublish": "npm run build"
+  },
+  "size-limit": [
+    {
+      "path": "dist/index.js",
+      "limit": "1.4 KB"
+    },
+    {
+      "path": "dist/chain.js",
+      "limit": "200 B"
+    },
+    {
+      "path": "dist/group.js",
+      "limit": "100 B"
+    },
+    {
+      "path": "dist/easings/index.js",
+      "limit": "550 B"
+    }
+  ],
+  "devDependencies": {
+    "eslint": "^4.14.0",
+    "eslint-config-standard": "^11.0.0-beta.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "jest": "^22.0.4",
+    "rimraf": "^2.6.2",
+    "rollup": "^0.53.3",
+    "size-limit": "^0.13.2"
+  },
+  "dependencies": {
+    "nanoevents": "^1.0.2",
+    "nanouptime": "^0.1.0"
+  }
 }

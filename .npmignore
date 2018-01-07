@@ -1,0 +1,5 @@
+test/
+.vscode/
+.eslintrc.js
+rollup.config.js
+yarn.lock
