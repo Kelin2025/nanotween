@@ -1,6 +1,6 @@
 # NanoTween
 
-1.5 KB is quite enough for comfortable tweening
+1.5 KB is quite enough for comfortable tweening  
 ![image](https://user-images.githubusercontent.com/4208480/34684747-27532bc4-f4b7-11e7-9387-bc4e87ad0eab.png)
 
 ## Included features
