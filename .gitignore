@@ -61,7 +61,7 @@ typings/
 .next
 
 # Build folder
-cjs/
+dist/
 
 # VS Code directory
 .vscode/
