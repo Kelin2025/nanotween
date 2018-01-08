@@ -1,5 +1,6 @@
 test/
 .vscode/
 .eslintrc.js
+size-limit.js
 rollup.config.js
 yarn.lock
