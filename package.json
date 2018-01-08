@@ -8,7 +8,7 @@
   "author": "Anton Kosykh <kelin2025@yandex.ru>",
   "license": "MIT",
   "scripts": {
-    "build": "size-limit && rollup -c",
+    "build": "node size-limit.js && rollup -c",
     "lint": "eslint src/*.js test/*.js",
     "pretest": "npm run build",
     "test": "jest test/** --coverage && npm run lint",
