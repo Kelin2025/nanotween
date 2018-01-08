@@ -23,7 +23,9 @@ export default function Tween() {
     id: tweens.length,
     repeats: 1,
     duration: 0,
-    easing: null,
+    easing: function(x) {
+      return x
+    },
     reversed: false,
     converters: []
   }
@@ -33,6 +35,17 @@ export default function Tween() {
     current: void 0,
     progress: 0,
     repeats: 0
+  }
+
+  var self = this
+
+  function remaining() {
+    return {
+      progress: self.state.progress,
+      value: self.state.value,
+      remaining: self.state.repeats + 1,
+      completed: self._options.repeats - self.state.repeats - 1
+    }
   }
 
   this.bus = new NanoEvents()
@@ -56,7 +69,6 @@ export default function Tween() {
 
   this.repeat = function(repeat) {
     this._options.repeats = repeat
-    this.state.repeats = repeat - 1
     return this
   }
 
@@ -79,10 +91,6 @@ export default function Tween() {
   this.set = function(progress) {
     this.state.progress = progress
     var easing = this._options.easing
-      ? this._options.easing
-      : function(x) {
-        return x
-      }
     easing.reverse = easing.reverse || easing
     var value = this._options.reversed
       ? 1 - easing.reverse(this.state.progress)
@@ -95,6 +103,7 @@ export default function Tween() {
 
   this.start = function() {
     this.set(0)
+    this.state.repeats = this._options.repeats - 1
     this.state.isRunning = true
     this.bus.emit('start')
     return this
@@ -102,42 +111,38 @@ export default function Tween() {
 
   this.stop = function() {
     this.set(1)
+    this.state.repeats = 0
     this.state.isRunning = false
     this.bus.emit('stop')
     return this
   }
 
-  this.complete = function(emit) {
-    emit = emit === void 0 ? true : emit
+  this.complete = function() {
     if (this.state.repeats > 0) {
       this.state.repeats--
       this.set(1)
-      setTimeout(() => {
-        if (emit) {
-          this.bus.emit('step', {
-            value: this.state.value,
-            remaining: this.state.repeats + 1,
-            completed: this._options.repeats - this.state.repeats - 1
-          })
-        }
-        this.set(0)
+      setTimeout(function() {
+        self.bus.emit('step', remaining())
+        self.set(0)
       }, 0)
     } else {
       this.state.isRunning = false
       this.set(1)
-      if (emit) setTimeout(() => this.bus.emit('complete'), 0)
+      setTimeout(function() {
+        self.bus.emit('complete')
+      }, 0)
     }
   }
 
   this.play = function() {
     this.state.isRunning = true
-    this.bus.emit('play')
+    this.bus.emit('play', remaining())
     return this
   }
 
   this.pause = function() {
     this.state.isRunning = false
-    this.bus.emit('pause')
+    this.bus.emit('pause', remaining())
     return this
   }
 }
