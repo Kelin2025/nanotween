@@ -114,8 +114,8 @@ export default function Tween() {
       if (emit) {
         this.bus.emit('step', {
           value: this.state.value,
-          remains: this.state.repeats + 1,
-          step: this._options.repeats - this.state.repeats - 1
+          remaining: this.state.repeats + 1,
+          completed: this._options.repeats - this.state.repeats - 1
         })
       }
       this.set(0)
