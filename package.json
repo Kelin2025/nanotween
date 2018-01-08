@@ -1,39 +1,49 @@
 {
   "name": "nanotween",
-  "version": "0.1.0-dev.0",
+  "version": "0.1.0-dev.1",
   "description": "Tiny library for tweening",
-  "main": "cjs/index.js",
-  "module": "es/index.js",
+  "main": "dist/index.js",
+  "module": "index.js",
   "repository": "https://github.com/kelin2025/nanotween",
   "author": "Anton Kosykh <kelin2025@yandex.ru>",
   "license": "MIT",
   "scripts": {
-    "build": "rollup -c",
+    "build": "size-limit && rollup -c",
     "lint": "eslint src/*.js test/*.js",
     "pretest": "npm run build",
     "test": "jest test/** --coverage && npm run lint",
-    "size": "npm run build && size-limit",
+    "size": "node size-limit.js",
+    "size:dist": "size-limit ./dist/index.js ./dist/helpers/*.js",
     "prepublish": "npm run build"
   },
   "size-limit": [
     {
-      "path": "dist/index.js",
-      "limit": "1.4 KB"
+      "path": "./index.js",
+      "limit": "1.5 KB"
     },
     {
-      "path": "dist/chain.js",
-      "limit": "200 B"
+      "path": "./helpers/chain.js",
+      "limit": "250 B"
     },
     {
-      "path": "dist/group.js",
+      "path": "./helpers/group.js",
       "limit": "100 B"
     },
     {
-      "path": "dist/easings/index.js",
-      "limit": "550 B"
+      "path": "./helpers/yoyo.js",
+      "limit": "100 B"
+    },
+    {
+      "path": "./helpers/fromTo.js",
+      "limit": "150 B"
+    },
+    {
+      "path": "./easings/index.js",
+      "limit": "1 KB"
     }
   ],
   "devDependencies": {
+    "chalk": "^2.3.0",
     "eslint": "^4.14.0",
     "eslint-config-standard": "^11.0.0-beta.0",
     "eslint-plugin-import": "^2.8.0",
