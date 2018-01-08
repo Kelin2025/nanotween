@@ -9,6 +9,7 @@ function tick(tween, diff) {
   var progress = tween.state.progress + diff / tween._options.duration
   if (progress > 1) {
     while (progress > 1) {
+      if (!tween.state.isRunning) return
       tween.complete()
       progress--
     }
@@ -111,18 +112,20 @@ export default function Tween() {
     if (this.state.repeats > 0) {
       this.state.repeats--
       this.set(1)
-      if (emit) {
-        this.bus.emit('step', {
-          value: this.state.value,
-          remaining: this.state.repeats + 1,
-          completed: this._options.repeats - this.state.repeats - 1
-        })
-      }
-      this.set(0)
+      setTimeout(() => {
+        if (emit) {
+          this.bus.emit('step', {
+            value: this.state.value,
+            remaining: this.state.repeats + 1,
+            completed: this._options.repeats - this.state.repeats - 1
+          })
+        }
+        this.set(0)
+      }, 0)
     } else {
       this.state.isRunning = false
       this.set(1)
-      if (emit) this.bus.emit('complete')
+      if (emit) setTimeout(() => this.bus.emit('complete'), 0)
     }
   }
 
