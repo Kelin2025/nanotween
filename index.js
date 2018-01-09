@@ -124,17 +124,19 @@ export default function Tween() {
   }
 
   self.complete = function(times) {
-    if (self.state.repeats > 0) {
+    self._rescale(1)
+    var isStop = self.state.repeats < times
+    var ticks = isStop ? self.state.repeats : times
+    while (ticks > 0) {
       self.state.repeats--
-      self._rescale(1)
-      self.bus.emit('step', remaining())
-      self._rescale(0)
-    } else {
-      self._rescale(1)
+      self.bus.emit('step', ticks)
+      ticks--
+    }
+    if (isStop) {
       self.state.isRunning = false
       self.bus.emit('complete')
     }
-    return times > 1 ? self.complete(times - 1) : self
+    return self
   }
 
   self.play = function() {
