@@ -4,23 +4,12 @@ import NanoEvents from 'nanoevents'
 var lastTime = 0
 var tweens = []
 
-function tick(tween, diff) {
-  if (!tween.state.isRunning) return
-  var progress = tween.state.progress + diff / tween._options.duration
-  if (progress > 1) {
-    while (progress > 1) {
-      if (!tween.state.isRunning) return
-      tween.complete()
-      progress--
-    }
-  } else {
-    tween.set(progress)
-  }
-}
-
 export default function Tween() {
-  this._options = {
+  var self = this
+
+  self._options = {
     id: tweens.length,
+    delay: 0,
     repeats: 1,
     duration: 0,
     easing: function(x) {
@@ -30,14 +19,12 @@ export default function Tween() {
     converters: []
   }
 
-  this.state = {
+  self.state = {
     isRunning: false,
     current: void 0,
     progress: 0,
     repeats: 0
   }
-
-  var self = this
 
   function remaining() {
     return {
@@ -48,109 +35,130 @@ export default function Tween() {
     }
   }
 
-  this.bus = new NanoEvents()
+  self.bus = new NanoEvents()
 
-  tweens.push(this)
+  tweens.push(self)
 
-  this.use = function(enhancer) {
-    enhancer(this)
-    return this
+  self.use = function(enhancer) {
+    enhancer(self)
+    return self
   }
 
-  this.easing = function(easing) {
-    this._options.easing = easing
-    return this
+  self.easing = function(easing) {
+    self._options.easing = easing
+    return self
   }
 
-  this.duration = function(duration) {
-    this._options.duration = duration
-    return this
+  self.duration = function(duration) {
+    self._options.duration = duration
+    return self
   }
 
-  this.repeat = function(repeat) {
-    this._options.repeats = repeat
-    return this
+  self.delay = function(delay) {
+    self._options.delay = delay
+    return self
   }
 
-  this.reverse = function(val) {
-    this._options.reversed = val !== void 0 ? val : !this._options.reversed
-    this.state.progress = 1 - this.state.progress
-    return this
+  self.repeat = function(repeat) {
+    self._options.repeats = repeat
+    return self
   }
 
-  this.on = function(evt, cb) {
-    this.bus.on(evt, cb)
-    return this
+  self.reverse = function(val) {
+    self._options.reversed = val !== void 0 ? val : !self._options.reversed
+    self.state.progress = 1 - self.state.progress
+    return self
   }
 
-  this.convert = function(cb) {
-    this._options.converters.push(cb)
-    return this
+  self.on = function(evt, cb) {
+    self.bus.on(evt, cb)
+    return self
   }
 
-  this.set = function(progress) {
-    this.state.progress = progress
-    var easing = this._options.easing
+  self.convert = function(cb) {
+    self._options.converters.push(cb)
+    return self
+  }
+
+  self.set = function(progress) {
+    if (progress > 1) {
+      var times = Math.floor(progress)
+      self.complete(times)
+      if (!self.state.isRunning) return
+      self._rescale(progress - times)
+    } else {
+      self._rescale(progress)
+    }
+    return self
+  }
+
+  self._rescale = function(progress) {
+    self.state.progress = progress
+    var easing = self._options.easing
     easing.reverse = easing.reverse || easing
-    var value = this._options.reversed
-      ? 1 - easing.reverse(this.state.progress)
-      : easing(this.state.progress)
-    this.state.value = this._options.converters.reduce(function(res, cb) {
+    var value = self._options.reversed
+      ? 1 - easing.reverse(self.state.progress)
+      : easing(self.state.progress)
+    self.state.value = self._options.converters.reduce(function(res, cb) {
       return cb(res)
     }, value)
-    this.bus.emit('update', this.state.value)
+    self.bus.emit('update', self.state.value)
   }
 
-  this.start = function() {
-    this.set(0)
-    this.state.repeats = this._options.repeats - 1
-    this.state.isRunning = true
-    this.bus.emit('start')
-    return this
+  self.start = function() {
+    self._i = setTimeout(function() {
+      self.set(0)
+      self.state.repeats = self._options.repeats - 1
+      self.state.isRunning = true
+      self.bus.emit('start')
+    }, self._options.delay)
+    return self
   }
 
-  this.stop = function() {
-    this.set(1)
-    this.state.repeats = 0
-    this.state.isRunning = false
-    this.bus.emit('stop')
-    return this
+  self.stop = function() {
+    self.set(1)
+    self.state.repeats = 0
+    self.state.isRunning = false
+    self.bus.emit('stop')
+    return self
   }
 
-  this.complete = function() {
-    if (this.state.repeats > 0) {
-      this.state.repeats--
-      this.set(1)
-      setTimeout(function() {
-        self.bus.emit('step', remaining())
-        self.set(0)
-      }, 0)
+  self.complete = function(times) {
+    if (self.state.repeats > 0) {
+      self.state.repeats--
+      self._rescale(1)
+      self.bus.emit('step', remaining())
+      self._rescale(0)
     } else {
-      this.state.isRunning = false
-      this.set(1)
-      setTimeout(function() {
-        self.bus.emit('complete')
-      }, 0)
+      self._rescale(1)
+      self.state.isRunning = false
+      self.bus.emit('complete')
     }
+    return times > 1 ? self.complete(times - 1) : self
   }
 
-  this.play = function() {
-    this.state.isRunning = true
-    this.bus.emit('play', remaining())
-    return this
+  self.play = function() {
+    self.state.isRunning = true
+    self.bus.emit('play', remaining())
+    return self
   }
 
-  this.pause = function() {
-    this.state.isRunning = false
-    this.bus.emit('pause', remaining())
-    return this
+  self.pause = function() {
+    self.state.isRunning = false
+    self.bus.emit('pause', remaining())
+    return self
   }
 }
 
 Tween.update = function() {
+  if (document.hidden) return
   var now = uptime()
   tweens.forEach(function(tween) {
-    if (tween.state.isRunning) tick(tween, now - lastTime)
+    if (tween.state.isRunning) {
+      tween.set(
+        tween.state.progress + (now - lastTime) / tween._options.duration
+      )
+    }
   })
   lastTime = now
 }
