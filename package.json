@@ -23,7 +23,7 @@
     },
     {
       "path": "./helpers/chain.js",
-      "limit": "250 B"
+      "limit": "270 B"
     },
     {
       "path": "./helpers/group.js",
@@ -35,7 +35,7 @@
     },
     {
       "path": "./helpers/fromTo.js",
-      "limit": "150 B"
+      "limit": "120 B"
     },
     {
       "path": "./easings/index.js",
