@@ -1,20 +1,21 @@
 # NanoTween
 
-1.5 KB is quite enough for comfortable tweening  
-![image](https://user-images.githubusercontent.com/4208480/34684747-27532bc4-f4b7-11e7-9387-bc4e87ad0eab.png)
+1.5 KB is quite enough for full-featured and comfortable tweening  
+![image](https://user-images.githubusercontent.com/4208480/34745457-a234e4b4-f5a1-11e7-8565-920006935cb4.png)
 
 ## Included features
 
 * Easing functions
+* Tweening delays
 * Chaining and groupping
 * Yo-yo effect
 * You can start/stop, play/pause, reverse on-fly or force set tweening progress
 
 ## Advantages
 
-* Ultra small size (only **<1.5KB** core, **<2KB** with all helpers, **<3KB** with all easings)
-* Low-leveled API lets you easily adapt it to your needs
-* Big list of ready-to-use easing functions.
+* Ultra small size (only **<1.5KB** core, **2KB** with all helpers, **<3KB** with all easings)
+* Low-level API lets you easily adapt it to your needs
+* Big list of ready-to-use easing functions
 * Easings and helpers are separated from core library so you can add only needed functions
 
 ## Installation
