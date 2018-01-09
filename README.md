@@ -5,7 +5,7 @@
 
 ## Is it small enough?
 
-I made some researches with bundlephobia and size-limit and I can say 
+I made some researches with [bundlephobia](https://bundlephobia.com) and [size-limit](https://github.com/ai/size-limit) and here's what I can say 
 > **For now, NanoTween is the smallest tweening library on NPM**
 ```
 library    ¦ size
