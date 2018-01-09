@@ -7,8 +7,8 @@ export default function Group(tweens) {
       tweens.forEach(function(tween) {
         tween[method].apply(tween, args)
       })
+      return self
     }
   })
-  this.tweens = tweens
-  return self
+  self.tweens = tweens
 }

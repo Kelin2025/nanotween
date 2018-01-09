@@ -1,26 +1,29 @@
 export default function Chain(tweens) {
   var self = this
-  this.current = 0
-  var evts = { start: [], stop: [], step: [], complete: [] }
+  var evts = { start: [], stop: [], step: [], update: [], complete: [] }
 
-  this.on = function(evt, cb) {
+  self.current = 0
+  self.tweens = tweens
+
+  self.on = function(evt, cb) {
     evts[evt].push(cb)
     return this
   }
 
-  this.start = function() {
+  self.start = function() {
+    self.stop()
     tweens[0].start()
   }
 
-  this.stop = function() {
+  self.stop = function() {
     tweens[self.current].stop()
   }
 
-  this.play = function() {
+  self.play = function() {
     tweens[self.current].play()
   }
 
-  this.pause = function() {
+  self.pause = function() {
     tweens[self.current].pause()
   }
 
@@ -45,6 +48,21 @@ export default function Chain(tweens) {
         self.current = 0
         evts.stop.forEach(function(cb) {
           cb()
+        })
+      })
+      .on('play', function(meta) {
+        evts.play.forEach(function(cb) {
+          cb(meta, index)
+        })
+      })
+      .on('pause', function(meta) {
+        evts.pause.forEach(function(cb) {
+          cb(meta, index)
+        })
+      })
+      .on('update', function(meta) {
+        evts.update.forEach(function(cb) {
+          cb(meta, index)
         })
       })
       .on('complete', function() {
