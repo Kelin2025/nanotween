@@ -1,6 +1,7 @@
 export default function group(tweens) {
   var self = this
-  ;['start', 'stop', 'play', 'pause', 'complete'].forEach(function(method) {
+  Object.keys(tweens[0]).forEach(function(method) {
+    if (typeof method !== 'function') return
     self[method] = function() {
       var args = arguments
       tweens.forEach(function(tween) {
