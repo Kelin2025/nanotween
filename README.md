@@ -39,6 +39,10 @@ npm install nanotween
 yarn add nanotween
 ```
 
+## Complete guide
+
+You can find complete guide and more examples on **[Wiki](https://github.com/Kelin2025/nanotween/wiki)** page
+
 ## Countdown example
 
 Simple countdown timer
@@ -73,10 +77,6 @@ tween.start()
 ```
 
 ![image](https://user-images.githubusercontent.com/4208480/34684662-e8f51e8c-f4b6-11e7-8106-3160aa031259.png)
-
-## Complete guide
-
-You can find complete guide and more examples on **[Wiki](https://github.com/Kelin2025/nanotween/wiki)** page
 
 ## License
 
