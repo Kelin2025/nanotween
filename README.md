@@ -5,7 +5,8 @@
 
 ## Is it small enough?
 
-I made some researches with bundlephobia and size-limit and I can say that nanotween is the smallest tweening library on NPM.
+I made some researches with bundlephobia and size-limit and I can say 
+> **For now, NanoTween is the smallest tweening library on NPM**
 ```
 library    ¦ size
 -----------¦-------
