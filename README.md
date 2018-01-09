@@ -3,6 +3,19 @@
 1.5 KB is quite enough for full-featured and comfortable tweening  
 ![image](https://user-images.githubusercontent.com/4208480/34745457-a234e4b4-f5a1-11e7-8565-920006935cb4.png)
 
+## Is it small enough?
+
+I made some researches with bundlephobia and size-limit and I can say that nanotween is the smallest tweening library on NPM.
+```
+library    ¦ size
+-----------¦-------
+es6-tween  ¦ 6.0 KB
+tweenr     ¦ 4.7 KB
+shifty     ¦ 4.2 KB
+tweenjs    ¦ 2.9 KB
+tweeno     ¦ 2.8 KB
+nanotween  ¦ 1.6 KB
+```
 ## Included features
 
 * Easing functions
