@@ -1,4 +1,4 @@
-export default function group(tweens) {
+export default function Chain(tweens) {
   var self = this
   this.current = 0
   var evts = { start: [], stop: [], step: [], complete: [] }

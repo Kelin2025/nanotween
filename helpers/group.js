@@ -1,4 +1,4 @@
-export default function group(tweens) {
+export default function Group(tweens) {
   var self = this
   Object.keys(tweens[0]).forEach(function(method) {
     if (typeof method !== 'function') return

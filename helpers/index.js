@@ -1,3 +1,3 @@
 export { default as yoyo } from './yoyo'
-export { default as chain } from './chain'
-export { default as group } from './group'
+export { default as Chain } from './chain'
+export { default as Group } from './group'
