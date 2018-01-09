@@ -27,7 +27,7 @@
     },
     {
       "path": "./helpers/group.js",
-      "limit": "100 B"
+      "limit": "110 B"
     },
     {
       "path": "./helpers/yoyo.js",

@@ -9,5 +9,6 @@ export default function group(tweens) {
       })
     }
   })
+  this.tweens = tweens
   return self
 }
