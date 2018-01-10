@@ -34,7 +34,8 @@ export default [
       format: 'iife',
       interop: false,
       strict: false
-    }
+    },
+    plugins: [uglify()]
   },
   {
     input: './easings/index.js',
@@ -44,6 +45,7 @@ export default [
       format: 'iife',
       interop: false,
       strict: false
-    }
+    },
+    plugins: [uglify()]
   }
 ]
