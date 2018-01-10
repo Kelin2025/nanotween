@@ -2,7 +2,7 @@
   "name": "nanotween",
   "version": "0.4.0",
   "description": "Tiny library for tweening",
-  "main": "dist/index.js",
+  "main": "index.js",
   "module": "index.js",
   "repository": "https://github.com/kelin2025/nanotween",
   "author": "Anton Kosykh <kelin2025@yandex.ru>",
@@ -13,8 +13,7 @@
     "pretest": "npm run build",
     "test": "jest test/** --coverage && npm run lint",
     "size": "node size-limit.js",
-    "size:dist": "size-limit ./dist/index.js ./dist/helpers/*.js",
-    "prepublish": "npm run build"
+    "size:dist": "size-limit ./dist/index.js ./dist/helpers/*.js"
   },
   "size-limit": [
     {
