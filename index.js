@@ -15,7 +15,6 @@ export default function Tween() {
     easing: function(x) {
       return x
     },
-    reversed: false,
     converters: []
   }
 
@@ -32,7 +31,7 @@ export default function Tween() {
     self.state.progress = progress
     var easing = _options.easing
     easing.reverse = easing.reverse || easing
-    var value = _options.reversed
+    var value = self.state.reversed
       ? 1 - easing.reverse(self.state.progress)
       : easing(self.state.progress)
     self.state.value = _options.converters.reduce(function(res, cb) {
@@ -45,6 +44,7 @@ export default function Tween() {
     isRunning: false,
     current: void 0,
     progress: 0,
+    reversed: false,
     repeats: 0
   }
 
@@ -78,7 +78,7 @@ export default function Tween() {
   }
 
   self.reverse = function(val) {
-    _options.reversed = val !== void 0 ? val : !_options.reversed
+    self.state.reversed = val !== void 0 ? val : !self.state.reversed
     self.state.progress = 1 - self.state.progress
     return self
   }
