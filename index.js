@@ -7,7 +7,7 @@ var tweens = []
 export default function Tween() {
   var self = this
 
-  self._options = {
+  var _options = {
     id: tweens.length,
     delay: 0,
     repeats: 1,
@@ -19,20 +19,33 @@ export default function Tween() {
     converters: []
   }
 
-  self.state = {
-    isRunning: false,
-    current: void 0,
-    progress: 0,
-    repeats: 0
-  }
-
   function remaining() {
     return {
       progress: self.state.progress,
       value: self.state.value,
       remaining: self.state.repeats + 1,
-      completed: self._options.repeats - self.state.repeats - 1
+      completed: _options.repeats - self.state.repeats - 1
     }
+  }
+
+  function _rescale(progress) {
+    self.state.progress = progress
+    var easing = _options.easing
+    easing.reverse = easing.reverse || easing
+    var value = _options.reversed
+      ? 1 - easing.reverse(self.state.progress)
+      : easing(self.state.progress)
+    self.state.value = _options.converters.reduce(function(res, cb) {
+      return cb(res)
+    }, value)
+    self.bus.emit('update', self.state.value)
+  }
+
+  self.state = {
+    isRunning: false,
+    current: void 0,
+    progress: 0,
+    repeats: 0
   }
 
   self.bus = new NanoEvents()
@@ -45,27 +58,27 @@ export default function Tween() {
   }
 
   self.easing = function(easing) {
-    self._options.easing = easing
+    _options.easing = easing
     return self
   }
 
   self.duration = function(duration) {
-    self._options.duration = duration
+    _options.duration = duration
     return self
   }
 
   self.delay = function(delay) {
-    self._options.delay = delay
+    _options.delay = delay
     return self
   }
 
   self.repeat = function(repeat) {
-    self._options.repeats = repeat
+    _options.repeats = repeat
     return self
   }
 
   self.reverse = function(val) {
-    self._options.reversed = val !== void 0 ? val : !self._options.reversed
+    _options.reversed = val !== void 0 ? val : !_options.reversed
     self.state.progress = 1 - self.state.progress
     return self
   }
@@ -76,7 +89,7 @@ export default function Tween() {
   }
 
   self.convert = function(cb) {
-    self._options.converters.push(cb)
+    _options.converters.push(cb)
     return self
   }
 
@@ -85,33 +98,24 @@ export default function Tween() {
       var times = Math.floor(progress)
       self.complete(times)
       if (!self.state.isRunning) return
-      self._rescale(progress - times)
+      _rescale(progress - times)
     } else {
-      self._rescale(progress)
+      _rescale(progress)
     }
     return self
   }
 
-  self._rescale = function(progress) {
-    self.state.progress = progress
-    var easing = self._options.easing
-    easing.reverse = easing.reverse || easing
-    var value = self._options.reversed
-      ? 1 - easing.reverse(self.state.progress)
-      : easing(self.state.progress)
-    self.state.value = self._options.converters.reduce(function(res, cb) {
-      return cb(res)
-    }, value)
-    self.bus.emit('update', self.state.value)
+  self.tick = function(time) {
+    self.set(self.state.progress + time / _options.duration)
   }
 
   self.start = function() {
     self._i = setTimeout(function() {
       self.set(0)
-      self.state.repeats = self._options.repeats - 1
+      self.state.repeats = _options.repeats - 1
       self.state.isRunning = true
       self.bus.emit('start')
-    }, self._options.delay)
+    }, _options.delay)
     return self
   }
 
@@ -124,7 +128,7 @@ export default function Tween() {
   }
 
   self.complete = function(times) {
-    self._rescale(1)
+    _rescale(1)
     var isStop = self.state.repeats < times
     var ticks = isStop ? self.state.repeats : times
     while (ticks > 0) {
@@ -157,9 +161,7 @@ Tween.update = function() {
   var now = uptime()
   tweens.forEach(function(tween) {
     if (tween.state.isRunning) {
-      tween.set(
-        tween.state.progress + (now - lastTime) / tween._options.duration
-      )
+      tween.tick(now - lastTime)
     }
   })
   lastTime = now
