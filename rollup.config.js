@@ -2,6 +2,8 @@
 // const path = require('path')
 // const rimraf = require('rimraf')
 const cjs = require('rollup-plugin-commonjs')
+const uglify = require('rollup-plugin-uglify')
+const replace = require('rollup-plugin-replace')
 const resolve = require('rollup-plugin-node-resolve')
 
 export default [
@@ -15,7 +17,14 @@ export default [
       strict: false,
       globals: { nanouptime: 'nanouptime', nanoevents: 'NanoEvents' }
     },
-    plugins: [resolve(), cjs()]
+    plugins: [
+      resolve(),
+      cjs(),
+      replace({
+        'process.env.NODE_ENV': JSON.stringify('production')
+      }),
+      uglify()
+    ]
   },
   {
     input: './helpers/index.js',
