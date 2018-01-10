@@ -1,34 +1,40 @@
-const fs = require('fs')
-const path = require('path')
-const rimraf = require('rimraf')
+// const fs = require('fs')
+// const path = require('path')
+// const rimraf = require('rimraf')
+const cjs = require('rollup-plugin-commonjs')
+const resolve = require('rollup-plugin-node-resolve')
 
-const distDir = 'dist'
-
-const createConfig = files =>
-  files.reduce(
-    (config, name) =>
-      config.concat({
-        input: `${name}.js`,
-        output: {
-          file: `${distDir}/${name}.js`,
-          format: 'cjs',
-          interop: false,
-          strict: false
-        }
-      }),
-    []
-  )
-
-const getFiles = dir =>
-  fs
-    .readdirSync(path.resolve(__dirname, dir))
-    .filter(name => name !== 'index.js')
-    .map(name => `${dir}/${name.slice(0, -3)}`)
-
-rimraf.sync(path.resolve(__dirname, distDir))
-fs.mkdirSync(path.resolve(__dirname, distDir))
-fs.mkdirSync(path.resolve(__dirname, distDir, 'easings'))
-
-export default createConfig(
-  ['index'].concat(getFiles('easings'), getFiles('helpers'))
-)
+export default [
+  {
+    input: './index.js',
+    output: {
+      name: 'Nanotween',
+      file: 'dist/index.js',
+      format: 'iife',
+      interop: false,
+      strict: false,
+      globals: { nanouptime: 'nanouptime', nanoevents: 'NanoEvents' }
+    },
+    plugins: [resolve(), cjs()]
+  },
+  {
+    input: './helpers/index.js',
+    output: {
+      name: 'ntHelpers',
+      file: 'dist/helpers.js',
+      format: 'iife',
+      interop: false,
+      strict: false
+    }
+  },
+  {
+    input: './easings/index.js',
+    output: {
+      name: 'ntEasings',
+      file: 'dist/easings.js',
+      format: 'iife',
+      interop: false,
+      strict: false
+    }
+  }
+]
