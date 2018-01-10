@@ -13,7 +13,8 @@
     "pretest": "npm run build",
     "test": "jest test/** --coverage && npm run lint",
     "size": "node size-limit.js",
-    "size:dist": "size-limit ./dist/index.js ./dist/helpers/*.js"
+    "size:dist": "size-limit ./dist/index.js ./dist/helpers/*.js",
+    "prepublish": "npm run build"
   },
   "size-limit": [
     {
