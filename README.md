@@ -58,11 +58,11 @@ import NanoTween from 'nanotween'
 import { linear } from 'nanotween/easings'
 
 // Start tweening process
-const animate = () => {
+const animate = (time) => {
   requestAnimationFrame(animate)
-  Nanotween.update()
+  NanoTween.update(time)
 }
-animate()
+animate(performance.now())
 
 // Some element and duration in seconds
 const el = document.getElementById('tween')
