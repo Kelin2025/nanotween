@@ -1,21 +1,26 @@
 # NanoTween
 
 1.5 KB is quite enough for full-featured and comfortable tweening  
-![image](https://user-images.githubusercontent.com/4208480/34745457-a234e4b4-f5a1-11e7-8565-920006935cb4.png)
 
 ## Is it small enough?
 
 I made some researches with [bundlephobia](https://bundlephobia.com) and [size-limit](https://github.com/ai/size-limit) and here's what I can say 
-> **For now, NanoTween is the smallest tweening library on NPM**
+> **For now, NanoTween core is the smallest tweening core on NPM**
 ```
 library    ¦ size
 -----------¦-------
+gsap       ¦ 37  KB
+moofx      ¦ 7.4 KB
 es6-tween  ¦ 6.0 KB
+animejs    ¦ 5.7 KB
+kute       ¦ 5.6 KB
 tweenr     ¦ 4.7 KB
 shifty     ¦ 4.2 KB
+kute       ¦ 3.4 KB
 tweenjs    ¦ 2.9 KB
 tweeno     ¦ 2.8 KB
-nanotween  ¦ 1.6 KB
+anim       ¦ 1.1 KB
+nanotween  ¦ 754 B
 ```
 ## Included features
 
@@ -27,7 +32,7 @@ nanotween  ¦ 1.6 KB
 
 ## Advantages
 
-* Ultra small size (only **<1.5KB** core, **2KB** with all helpers, **<3KB** with all easings)
+* Ultra small size (only **<1KB** core, **1.5KB** with **all** helpers, **<2.5KB** with **all** easings)
 * Low-level API lets you easily adapt it to your needs
 * Big list of ready-to-use easing functions
 * Easings and helpers are separated from core library so you can add only needed functions
