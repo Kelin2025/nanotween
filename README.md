@@ -10,18 +10,18 @@ I made some researches with [bundlephobia](https://bundlephobia.com) and [size-l
 ```
 library    ¦ size
 -----------¦-------
-gsap       ¦ 37  KB
-moofx      ¦ 7.4 KB
-es6-tween  ¦ 6.0 KB
-animejs    ¦ 5.7 KB
-kute       ¦ 5.6 KB
-tweenr     ¦ 4.7 KB
-shifty     ¦ 4.2 KB
-kute       ¦ 3.4 KB
-tweenjs    ¦ 2.9 KB
-tweeno     ¦ 2.8 KB
-anim       ¦ 1.1 KB
-nanotween  ¦ 754 B
+gsap       ¦ 37.0 KB
+moofx      ¦  7.4 KB
+es6-tween  ¦  6.0 KB
+animejs    ¦  5.7 KB
+kute       ¦  5.6 KB
+tweenr     ¦  4.7 KB
+shifty     ¦  4.2 KB
+kute       ¦  3.4 KB
+tweenjs    ¦  2.9 KB
+tweeno     ¦  2.8 KB
+anim       ¦  1.1 KB
+nanotween  ¦  0.7 KB
 ```
 ## Included features
 
