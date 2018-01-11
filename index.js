@@ -1,4 +1,3 @@
-import uptime from 'nanouptime'
 import NanoEvents from 'nanoevents'
 
 var lastTime = 0
@@ -156,9 +155,8 @@ export default function Tween() {
   }
 }
 
-Tween.update = function() {
+Tween.update = function(now) {
   if (document.hidden) return
-  var now = uptime()
   tweens.forEach(function(tween) {
     if (tween.state.isRunning) {
       tween.tick(now - lastTime)

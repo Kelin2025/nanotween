@@ -1,6 +1,3 @@
-// const fs = require('fs')
-// const path = require('path')
-// const rimraf = require('rimraf')
 const cjs = require('rollup-plugin-commonjs')
 const uglify = require('rollup-plugin-uglify')
 const replace = require('rollup-plugin-replace')
