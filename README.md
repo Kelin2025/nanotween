@@ -30,6 +30,7 @@ nanotween  ¦  0.7 KB
 * Chaining and groupping
 * Yo-yo effect
 * You can start/stop, play/pause, reverse on-fly or force set tweening progress
+* Also has IIFE build to include as `<script>` file
 
 ## Advantages
 
