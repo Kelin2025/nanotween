@@ -41,10 +41,21 @@ nanotween  ¦  0.7 KB
 
 ## Installation
 
+### From NPM
 ```
 npm install nanotween
 yarn add nanotween
 ```
+
+### From unpckg
+```
+<script src="https://unpkg.com/nanotween@0.5.0/dist/index.js"></script>
+<script src="https://unpkg.com/nanotween@0.5.0/dist/helpers.js"></script>
+<script src="https://unpkg.com/nanotween@0.5.0/dist/easings.js"></script>
+```
+`NanoTween` is available as is. 
+Helpers are available in `ntHelpers` global variable, easings - in `ntEasings`.  
+If you don't need helpers or easings, you can include only core script.
 
 ## Complete guide
 
