@@ -24,6 +24,22 @@ anim       ¦  1.1 KB
 nanotween  ¦  0.7 KB
 ```
 
+## Included features
+
+* Easing functions
+* Tweening delays
+* Chaining and groupping
+* Yo-yo effect
+* You can start/stop, play/pause, reverse on-fly or force set tweening progress
+* Also has IIFE build to include as `<script>` file
+
+## Advantages
+
+* Ultra small size (only **<1KB** core, **1.5KB** with **all** helpers, **<2.5KB** with **all** easings)
+* Low-level API lets you easily adapt it to your needs
+* Big list of ready-to-use easing functions
+* Easings and helpers are separated from core library so you can add only needed functions
+
 ## Installation
 
 ### From NPM
@@ -42,25 +58,9 @@ yarn add nanotween
 Helpers are available in `ntHelpers` global variable, easings - in `ntEasings`.  
 If you don't need helpers or easings, you can include only core script.
 
-## Included features
-
-* Easing functions
-* Tweening delays
-* Chaining and groupping
-* Yo-yo effect
-* You can start/stop, play/pause, reverse on-fly or force set tweening progress
-* Also has IIFE build to include as `<script>` file
-
-## Advantages
-
-* Ultra small size (only **<1KB** core, **1.5KB** with **all** helpers, **<2.5KB** with **all** easings)
-* Low-level API lets you easily adapt it to your needs
-* Big list of ready-to-use easing functions
-* Easings and helpers are separated from core library so you can add only needed functions
-
 ## Complete guide
 
-You can find complete guide and more examples on **[Wiki](https://github.com/Kelin2025/nanotween/wiki)** page
+You can find complete guide and live demos on **[wiki](https://github.com/Kelin2025/nanotween/wiki)**
 
 ## Countdown example
 
