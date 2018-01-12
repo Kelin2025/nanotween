@@ -23,21 +23,6 @@ tweeno     ¦  2.8 KB
 anim       ¦  1.1 KB
 nanotween  ¦  0.7 KB
 ```
-## Included features
-
-* Easing functions
-* Tweening delays
-* Chaining and groupping
-* Yo-yo effect
-* You can start/stop, play/pause, reverse on-fly or force set tweening progress
-* Also has IIFE build to include as `<script>` file
-
-## Advantages
-
-* Ultra small size (only **<1KB** core, **1.5KB** with **all** helpers, **<2.5KB** with **all** easings)
-* Low-level API lets you easily adapt it to your needs
-* Big list of ready-to-use easing functions
-* Easings and helpers are separated from core library so you can add only needed functions
 
 ## Installation
 
@@ -56,6 +41,22 @@ yarn add nanotween
 `NanoTween` is available as is. 
 Helpers are available in `ntHelpers` global variable, easings - in `ntEasings`.  
 If you don't need helpers or easings, you can include only core script.
+
+## Included features
+
+* Easing functions
+* Tweening delays
+* Chaining and groupping
+* Yo-yo effect
+* You can start/stop, play/pause, reverse on-fly or force set tweening progress
+* Also has IIFE build to include as `<script>` file
+
+## Advantages
+
+* Ultra small size (only **<1KB** core, **1.5KB** with **all** helpers, **<2.5KB** with **all** easings)
+* Low-level API lets you easily adapt it to your needs
+* Big list of ready-to-use easing functions
+* Easings and helpers are separated from core library so you can add only needed functions
 
 ## Complete guide
 
@@ -76,9 +77,11 @@ const animate = (time) => {
 }
 animate(performance.now())
 
-// Some element and duration in seconds
-const el = document.getElementById('tween')
+// Duration in seconds
 const duration = 10
+
+// Element
+const el = document.getElementById('tween')
 
 // Create tween object
 const tween = new NanoTween()
