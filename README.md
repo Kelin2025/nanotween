@@ -1,7 +1,7 @@
 # NanoTween
 
 ~1.5 KB is quite enough for full-featured and comfortable tweening  
-![image](https://user-images.githubusercontent.com/4208480/34852373-5c445774-f73f-11e7-9dba-9509b3cff954.png)
+![image](https://user-images.githubusercontent.com/4208480/34992412-34f0d6aa-fade-11e7-9352-111f39113387.png)
 
 ## Is it small enough?
 
@@ -12,18 +12,18 @@ I made some researches with [bundlephobia](https://bundlephobia.com) and [size-l
 ```
 library    ¦ size
 -----------¦-------
-gsap       ¦ 37  KB
-moofx      ¦ 7.4 KB
-es6-tween  ¦ 6.0 KB
-animejs    ¦ 5.7 KB
-kute       ¦ 5.6 KB
-tweenr     ¦ 4.7 KB
-shifty     ¦ 4.2 KB
-kute       ¦ 3.4 KB
-tweenjs    ¦ 2.9 KB
-tweeno     ¦ 2.8 KB
-anim       ¦ 1.1 KB
-nanotween  ¦ 848 B
+gsap       ¦ 37.0 KB
+moofx      ¦  7.4 KB
+es6-tween  ¦  6.0 KB
+animejs    ¦  5.7 KB
+kute       ¦  5.6 KB
+tweenr     ¦  4.7 KB
+shifty     ¦  4.2 KB
+kute       ¦  3.4 KB
+tweenjs    ¦  2.9 KB
+tweeno     ¦  2.8 KB
+anim       ¦  1.1 KB
+nanotween  ¦  0.8 KB
 ```
 
 ## Included features
@@ -33,6 +33,7 @@ nanotween  ¦ 848 B
 * Chaining and groupping
 * Yo-yo effect
 * You can start/stop, play/pause, reverse on-fly or force set tweening progress
+* Also has IIFE build to include as `<script>` file
 
 ## Advantages
 
@@ -43,14 +44,28 @@ nanotween  ¦ 848 B
 
 ## Installation
 
+### From NPM
+
 ```
 npm install nanotween
 yarn add nanotween
 ```
 
+### From unpckg
+
+```
+<script src="https://unpkg.com/nanotween@0.5.0/dist/index.js"></script>
+<script src="https://unpkg.com/nanotween@0.5.0/dist/helpers.js"></script>
+<script src="https://unpkg.com/nanotween@0.5.0/dist/easings.js"></script>
+```
+
+`NanoTween` is available as is.
+Helpers are available in `ntHelpers` global variable, easings - in `ntEasings`.  
+If you don't need helpers or easings, you can include only core script.
+
 ## Complete guide
 
-You can find complete guide and more examples on **[Wiki](https://github.com/Kelin2025/nanotween/wiki)** page
+You can find complete guide and live demos on **[wiki](https://github.com/Kelin2025/nanotween/wiki)**
 
 ## Countdown example
 
@@ -61,15 +76,17 @@ import NanoTween from 'nanotween'
 import { linear } from 'nanotween/easings'
 
 // Start tweening process
-const animate = () => {
+const animate = time => {
   requestAnimationFrame(animate)
-  Nanotween.update()
+  NanoTween.update(time)
 }
-animate()
+animate(performance.now())
 
-// Some element and duration in seconds
-const el = document.getElementById('tween')
+// Duration in seconds
 const duration = 10
+
+// Element
+const el = document.getElementById('tween')
 
 // Create tween object
 const tween = new NanoTween()
