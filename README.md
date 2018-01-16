@@ -5,8 +5,10 @@
 
 ## Is it small enough?
 
-I made some researches with [bundlephobia](https://bundlephobia.com) and [size-limit](https://github.com/ai/size-limit) and here's what I can say 
+I made some researches with [bundlephobia](https://bundlephobia.com) and [size-limit](https://github.com/ai/size-limit) and here's what I can say
+
 > **For now, NanoTween core is the smallest tweening core on NPM**
+
 ```
 library    ¦ size
 -----------¦-------
@@ -21,8 +23,9 @@ kute       ¦ 3.4 KB
 tweenjs    ¦ 2.9 KB
 tweeno     ¦ 2.8 KB
 anim       ¦ 1.1 KB
-nanotween  ¦ 754 B
+nanotween  ¦ 848 B
 ```
+
 ## Included features
 
 * Easing functions

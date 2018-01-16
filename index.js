@@ -7,7 +7,6 @@ export default function Tween() {
   var self = this
 
   var _options = {
-    id: tweens.length,
     delay: 0,
     repeats: 1,
     duration: 0,
@@ -40,7 +39,9 @@ export default function Tween() {
   }
 
   self.state = {
+    id: tweens.length,
     isRunning: false,
+    isRemoved: false,
     current: void 0,
     progress: 0,
     reversed: false,
@@ -124,6 +125,17 @@ export default function Tween() {
     self.state.isRunning = false
     self.bus.emit('stop')
     return self
+  }
+
+  self.remove = function() {
+    if (self.state.isRemoved) return
+    tweens.splice(
+      tweens.findIndex(function(t) {
+        return self.state.id === t.state.id
+      }),
+      1
+    )
+    self.state.isRemoved = true
   }
 
   self.complete = function(times) {
